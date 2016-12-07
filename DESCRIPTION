@@ -1,8 +1,8 @@
 Package: ldp
-Title: What the Package Does (one line, title case)
+Title: Local Dirichlet Processes
 Version: 0.0.0.9000
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Authors@R: person("Jacob", "Carey", email = "jcarey15@jhu.edu", role = c("aut", "cre"))
+Description: MCMC implementation of local dirichlet processes
 Depends: R (>= 3.3.2)
 License: What license is it under?
 Encoding: UTF-8
