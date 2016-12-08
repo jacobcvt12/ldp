@@ -35,3 +35,13 @@ ggplot(data, aes(x, y)) +
     ylim(-0.5, 1.5) +
     ylab("E(y|x)")
 
+# hyperparameters
+nu.1 <- nu.2 <- 0.01
+eta.1 <- eta.2 <- 2
+nu.0 <- 1
+Sigma.0 <- diag(1)
+mu.0 <- 0
+Sigma.mu <- n * solve(t(x) %*% x)
+a.gamma <- -0.05
+b.gamma <- 1.05
+psi <- 0.05
