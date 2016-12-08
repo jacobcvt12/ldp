@@ -45,3 +45,45 @@ Sigma.mu <- n * solve(t(x) %*% x)
 a.gamma <- -0.05
 b.gamma <- 1.05
 psi <- 0.05
+
+# mcmc parameters
+burn <- 1000
+post <- 1000
+thin <- 2
+
+# DP parameters
+N <- 50 # number of stick pieces
+
+# initialize parameters from prior
+alpha <- rgamma(1, eta.1, eta.2)
+tau <- rgamma(1, nu.1, nu.2)
+Sigma.beta <- solve(rWishart(1, nu.0, solve(nu.0 * Sigma.0))[, , 1])
+mu.beta <- rnorm(1, mu.0, Sigma.mu)
+beta.h.star <- rnorm(N, mu.beta, Sigma.beta)
+Gamma.h <- runif(N, a.gamma, b.gamma)
+V.h <- rbeta(N, 1, alpha)
+K <- integer(length(y))
+
+for (i in 1:n) {
+    # predictor dependent set indexing the locations belonging
+    # to the psi-nbd of x, eta_x^{psi}
+    L.x <- which(abs(x[i] - Gamma.h) < psi) 
+    pi <- L.x
+    # cardinality of L.x
+    N.x <- length(L.x)
+    
+    # allocate memory for p
+    p <- numeric(N.x)
+    
+    p[1] <- V.h[pi[1]]
+    
+    # weights/stick pieces
+    for (l in 2:(N.x -1)) {
+        p[l] <- V.h[pi[l]] * prod(1-V.h[pi[1:l]])
+    }
+    
+    p[N.x] <- prod(1-V.h[pi])
+    
+    # now sample K 
+    K[i] <- sample(N.x, 1, replace=TRUE, prob=p)
+}
