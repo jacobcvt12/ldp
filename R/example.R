@@ -114,4 +114,13 @@ for (s in 1:(burn+post)) {
         # now sample K 
         K[i] <- sample(N.x, 1, replace=TRUE, prob=p)
     }
+    
+    # conditional for V_h, h=1, ..., N
+    N.x <- sapply(x, function(y) max(which(abs(y-Gamma.h) < psi)))
+    for (h in 1:N) {
+        a <- sum(K == h & K != N.x)
+        b <- sum(K > h)
+        
+        V.h[h] <- rbeta(1, 1 + a, alpha + b)
+    }
 }
