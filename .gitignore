@@ -1,0 +1,17 @@
+# r files
+.Rhistory
+.RData
+.Ruserdata
+
+# rstudio files
+.Rproj.user
+*.Rproj
+
+# vim files
+*.swp
+*.swo
+
+# compiled files
+*.so
+*.o
+*.dll
