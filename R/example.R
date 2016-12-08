@@ -123,4 +123,10 @@ for (s in 1:(burn+post)) {
         
         V.h[h] <- rbeta(1, 1 + a, alpha + b)
     }
+    
+    # conditional for Gamma_h
+    for (h in 1:N) {
+        a <- max(max(x - psi), a.gamma)
+        Gamma.h[h] <- runif(a, b)
+    }
 }
