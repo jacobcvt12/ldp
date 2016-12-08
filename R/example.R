@@ -87,3 +87,31 @@ for (i in 1:n) {
     # now sample K 
     K[i] <- sample(N.x, 1, replace=TRUE, prob=p)
 }
+
+for (s in 1:(burn+post)) {
+    # conditional for K_i
+    for (i in 1:n) {
+        # predictor dependent set indexing the locations belonging
+        # to the psi-nbd of x, eta_x^{psi}
+        L.x <- which(abs(x[i] - Gamma.h) < psi) 
+        pi <- L.x
+        # cardinality of L.x
+        N.x <- length(L.x)
+        
+        # allocate memory for p
+        p <- numeric(N.x)
+        
+        p[1] <- V.h[pi[1]]
+        
+        # weights/stick pieces
+        for (l in 2:(N.x -1)) {
+            p[l] <- V.h[pi[l]] * prod(1-V.h[pi[1:l]])
+        }
+        
+        p[N.x] <- prod(1-V.h[pi])
+        p.prime <- dnorm(y, x * beta.h.star[K], sqrt(tau)) * p
+        
+        # now sample K 
+        K[i] <- sample(N.x, 1, replace=TRUE, prob=p)
+    }
+}
