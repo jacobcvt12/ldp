@@ -129,4 +129,11 @@ for (s in 1:(burn+post)) {
         a <- max(max(x - psi), a.gamma)
         Gamma.h[h] <- runif(a, b)
     }
+    
+    # conditional for beta_h^*, h=1, ..., N
+    for (h in 1:N) {
+        beta.h.star <- rnorm(1, mu.betah, sqrt(Sigma.betah))
+        mu.betah <- Sigma.betah %*% (solve(Sigma.beta) %*% mu.beta + tau * x[K == h] %*% y[K == h])
+        Sigma.betah <- solve(solve(Sigma.beta) + tau * x[K == h] %*% t(x[K == h]))
+    }
 }
