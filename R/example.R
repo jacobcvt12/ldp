@@ -136,4 +136,10 @@ for (s in 1:(burn+post)) {
         mu.betah <- Sigma.betah %*% (solve(Sigma.beta) %*% mu.beta + tau * x[K == h] %*% y[K == h])
         Sigma.betah <- solve(solve(Sigma.beta) + tau * x[K == h] %*% t(x[K == h]))
     }
+    
+    # conditional for mu_beta
+    Sigma.mu.hat <- solve(solve(Sigma.mu) + N * solve(Sigma.beta))
+    mu.0.hat <- Sigma.mu.hat %*% (solve(Sigma.mu %*% mu.0) + 
+                                  solve(Sigma.beta) * sum(beta.h.star))
+    mu.beta <- rnorm(1, mu.0.hat, Sigma.mu.hat)
 }
