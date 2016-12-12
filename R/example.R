@@ -147,6 +147,10 @@ for (s in 1:(burn+post)) {
     Sigma.beta <- solve(rWishart(1, N + nu.0, 
                                  solve()))
     
+    # conditional for tau
+    tau <- rgamma(1, nu.1 + n / 2, 
+                  nu.2 + 0.5 * sum((y - t(x) %*% beta.h.star[K])^2))
+    
     # conditional for alpha
     alpha <- rgamma(1, eta.1 + N, eta.2 - sum(log(1-V.h)))
 }
