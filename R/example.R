@@ -149,7 +149,7 @@ for (s in 1:(burn+post)) {
     
     # conditional for tau
     tau <- rgamma(1, nu.1 + n / 2, 
-                  nu.2 + 0.5 * sum((y - t(x) %*% beta.h.star[K])^2))
+                  nu.2 + 0.5 * sum((y - x * beta.h.star[K])^2))
     
     # conditional for alpha
     alpha <- rgamma(1, eta.1 + N, eta.2 - sum(log(1-V.h)))
