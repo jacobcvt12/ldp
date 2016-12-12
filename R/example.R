@@ -142,4 +142,8 @@ for (s in 1:(burn+post)) {
     mu.0.hat <- Sigma.mu.hat %*% (solve(Sigma.mu %*% mu.0) + 
                                   solve(Sigma.beta) * sum(beta.h.star))
     mu.beta <- rnorm(1, mu.0.hat, Sigma.mu.hat)
+    
+    # conditional for Sigma_{beta}^{-1}
+    Sigma.beta <- solve(rWishart(1, N + nu.0, 
+                                 solve()))
 }
