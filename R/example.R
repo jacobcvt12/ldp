@@ -146,4 +146,7 @@ for (s in 1:(burn+post)) {
     # conditional for Sigma_{beta}^{-1}
     Sigma.beta <- solve(rWishart(1, N + nu.0, 
                                  solve()))
+    
+    # conditional for alpha
+    alpha <- rgamma(1, eta.1 + N, eta.2 - sum(log(1-V.h)))
 }
